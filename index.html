@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample UI</title>
+    <title>Enhanced Sample UI</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
             background: #fff;
             padding: 20px;
@@ -23,7 +23,7 @@
             text-align: center;
             color: #333;
         }
-        input[type="text"], input[type="range"] {
+        input[type="text"], input[type="range"], select {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -39,6 +39,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            margin: 10px 0;
         }
         button:hover {
             background: #218838;
@@ -66,27 +67,86 @@
             border: 1px solid #ccc;
             border-top: none;
         }
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            margin: 10px 0;
+        }
+        .carousel img {
+            width: 100%;
+            border-radius: 8px;
+            transition: transform 0.4s ease;
+        }
+        .carousel img.active {
+            transform: scale(1.05);
+        }
+        .carousel-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .carousel-buttons button {
+            width: 48%;
+        }
+        .checkbox, .radio {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox input, .radio input {
+            margin-right: 10px;
+        }
     </style>
 
-<!--heap analytics start-->
-<script type="text/javascript">
-    window.heapReadyCb=window.heapReadyCb||[],window.heap=window.heap||[],heap.load=function(e,t){window.heap.envId=e,window.heap.clientConfig=t=t||{},window.heap.clientConfig.shouldFetchServerConfig=!1;var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src="https://cdn.us.heap-api.com/config/"+e+"/heap_config.js";var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(a,r);var n=["init","startTracking","stopTracking","track","resetIdentity","identify","getSessionId","getUserId","getIdentity","addUserProperties","addEventProperties","removeEventProperty","clearEventProperties","addAccountProperties","addAdapter","addTransformer","addTransformerFn","onReady","addPageviewProperties","removePageviewProperty","clearPageviewProperties","trackPageview"],i=function(e){return function(){var t=Array.prototype.slice.call(arguments,0);window.heapReadyCb.push({name:e,fn:function(){heap[e]&&heap[e].apply(heap,t)}})}};for(var p=0;p<n.length;p++)heap[n[p]]=i(n[p])};
-    heap.load("1494667009");
-  </script>
-
-<!--heap analytics end-->
+    <!-- Heap Analytics Start -->
+    <script type="text/javascript">
+        window.heapReadyCb=window.heapReadyCb||[],window.heap=window.heap||[],heap.load=function(e,t){window.heap.envId=e,window.heap.clientConfig=t=t||{},window.heap.clientConfig.shouldFetchServerConfig=!1;var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src="https://cdn.us.heap-api.com/config/"+e+"/heap_config.js";var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(a,r);var n=["init","startTracking","stopTracking","track","resetIdentity","identify","getSessionId","getUserId","getIdentity","addUserProperties","addEventProperties","removeEventProperty","clearEventProperties","addAccountProperties","addAdapter","addTransformer","addTransformerFn","onReady","addPageviewProperties","removePageviewProperty","clearPageviewProperties","trackPageview"],i=function(e){return function(){var t=Array.prototype.slice.call(arguments,0);window.heapReadyCb.push({name:e,fn:function(){heap[e]&&heap[e].apply(heap,t)}})}};for(var p=0;p<n.length;p++)heap[n[p]]=i(n[p])};
+        heap.load("1494667009");
+    </script>
+    <!-- Heap Analytics End -->
 
 </head>
 <body>
 
 <div class="container">
-    <h1>Sample UI</h1>
+    <h1>Enhanced Sample UI</h1>
     
     <label for="textInput">Text Input:</label>
     <input type="text" id="textInput" placeholder="Enter text here">
 
     <label for="rangeInput">Slider:</label>
     <input type="range" id="rangeInput" min="0" max="100">
+
+    <label for="dropdown">Dropdown:</label>
+    <select id="dropdown">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+    </select>
+
+    <div class="checkbox">
+        <input type="checkbox" id="checkbox1">
+        <label for="checkbox1">Check this box</label>
+    </div>
+
+    <div class="radio">
+        <input type="radio" id="radio1" name="radioGroup">
+        <label for="radio1">Radio button 1</label>
+    </div>
+    <div class="radio">
+        <input type="radio" id="radio2" name="radioGroup">
+        <label for="radio2">Radio button 2</label>
+    </div>
+
+    <div class="carousel">
+        <img src="https://via.placeholder.com/800x300" class="active">
+        <img src="https://via.placeholder.com/800x300/ff0000">
+        <img src="https://via.placeholder.com/800x300/00ff00">
+        <img src="https://via.placeholder.com/800x300/0000ff">
+    </div>
+    <div class="carousel-buttons">
+        <button id="prevButton">Previous</button>
+        <button id="nextButton">Next</button>
+    </div>
 
     <button id="submitButton">Submit</button>
 
@@ -123,6 +183,22 @@
             }
         });
     }
+
+    // Carousel functionality
+    var carouselImages = document.querySelectorAll('.carousel img');
+    var currentIndex = 0;
+
+    document.getElementById('nextButton').addEventListener('click', function() {
+        carouselImages[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % carouselImages.length;
+        carouselImages[currentIndex].classList.add('active');
+    });
+
+    document.getElementById('prevButton').addEventListener('click', function() {
+        carouselImages[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length;
+        carouselImages[currentIndex].classList.add('active');
+    });
 </script>
 
 </body>
